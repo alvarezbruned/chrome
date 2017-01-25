@@ -6,6 +6,7 @@
 #	--memory 512mb \ # max memory it can use
 #	-v /tmp/.X11-unix:/tmp/.X11-unix \ # mount the X11 socket
 #	-e DISPLAY=unix$DISPLAY \
+#	-e ELUSER=chromeuser \
 #	-v $HOME/Downloads:/home/chromeuser/Downloads \
 #	-v $HOME/.config/google-chrome/:/data \ # if you want to save state
 #	--device /dev/snd \ # so we have sound
@@ -17,15 +18,11 @@
 # Base docker image
 FROM debian:sid
 MAINTAINER Albert Alvarez
-
+ENV ELUSER=chromeuser
 ADD https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb /src/google-talkplugin_current_amd64.deb
-RUN mkdir -p /home/kritauser
+RUN mkdir -p /home/$ELUSER
 
-WORKDIR /home/chromeuser
-RUN useradd chromeuser -u 1000 -s /bin/bash
-RUN chown chromeuser -R /home/chromeuser
-USER chromeuser
-ENV HOME /home/chromeuser
+
 
 # Install Chrome
 RUN apt-get update && apt-get install -y \
@@ -49,6 +46,12 @@ RUN apt-get update && apt-get install -y \
 	&& apt-get purge --auto-remove -y curl \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /src/*.deb
+
+WORKDIR /home/$ELUSER
+RUN useradd $ELUSER -u 1000 -s /bin/bash
+RUN chown $ELUSER -R /home/$ELUSER
+USER $ELUSER
+ENV HOME /home/$ELUSER
 
 COPY local.conf /etc/fonts/local.conf
 
