@@ -50,7 +50,8 @@ WORKDIR /home/$ELUSER
 RUN useradd $ELUSER -u 1000 -s /bin/bash
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 USER $ELUSER
-RUN chown $ELUSER:$ELUSER /home/$ELUSER/Downloads
+RUN mkdir /home/$ELUSER/Downloads
+RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
 ENV HOME /home/$ELUSER
 
 COPY local.conf /etc/fonts/local.conf
