@@ -44,15 +44,16 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /src/*.deb
 
 ENV ELUSER chromeuser
-RUN useradd $ELUSER -u 1000 -s /bin/bash
-USER $ELUSER
 
 RUN mkdir -p /home/$ELUSER
-WORKDIR /home/$ELUSER
 RUN mkdir /home/$ELUSER/Downloads
 
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
+
+RUN useradd $ELUSER -u 1000 -s /bin/bash
+USER $ELUSER
+WORKDIR /home/$ELUSER
 ENV HOME /home/$ELUSER
 
 COPY local.conf /etc/fonts/local.conf
