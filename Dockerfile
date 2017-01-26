@@ -5,7 +5,6 @@
 #	--cpuset-cpus 0 \
 #	-v /tmp/.X11-unix:/tmp/.X11-unix \ # mount the X11 socket
 #	-e DISPLAY=unix$DISPLAY \
-#	-e ELUSER=chromeuser \
 #	-v $HOME/Downloads:/home/chromeuser/Downloads \
 #	-v $HOME/.config/google-chrome/:/data \ # if you want to save state
 #	--device /dev/snd \ # so we have sound
@@ -43,15 +42,15 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /src/*.deb
 
-ENV ELUSER chromeuser
+RUN useradd $ELUSER -u 1000 -s /bin/bash
 
 RUN mkdir -p /home/$ELUSER
 RUN mkdir /home/$ELUSER/Downloads
 
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
+ENV ELUSER chromeuser
 
-RUN useradd $ELUSER -u 1000 -s /bin/bash
 USER $ELUSER
 WORKDIR /home/$ELUSER
 ENV HOME /home/$ELUSER
