@@ -1,7 +1,8 @@
 # Run Chrome in a container
 #
-# docker run -it \
-#	--net host \ # may as well YOLO
+# docker run --rm -td \
+#	--net host \
+#	--cpuset-cpus 0 \
 #	-v /tmp/.X11-unix:/tmp/.X11-unix \ # mount the X11 socket
 #	-e DISPLAY=unix$DISPLAY \
 #	-e ELUSER=chromeuser \
@@ -12,16 +13,12 @@
 #	--name chrome \
 #	albertalvarezbruned/chrome
 #
-#	--cpuset-cpus 0 \ # control the cpu -> it doesn't work for me
 #	--memory 512mb \ # max memory it can use -> it doesn't work for me
 # Base docker image
 FROM debian:sid
 MAINTAINER Albert Alvarez
-ENV ELUSER chromeuser
+
 ADD https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb /src/google-talkplugin_current_amd64.deb
-RUN mkdir -p /home/$ELUSER
-
-
 
 # Install Chrome
 RUN apt-get update && apt-get install -y \
@@ -46,11 +43,15 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /src/*.deb
 
-WORKDIR /home/$ELUSER
+ENV ELUSER chromeuser
 RUN useradd $ELUSER -u 1000 -s /bin/bash
-RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 USER $ELUSER
+
+RUN mkdir -p /home/$ELUSER
+WORKDIR /home/$ELUSER
 RUN mkdir /home/$ELUSER/Downloads
+
+RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
 ENV HOME /home/$ELUSER
 
