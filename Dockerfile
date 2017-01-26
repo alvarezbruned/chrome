@@ -2,8 +2,6 @@
 #
 # docker run -it \
 #	--net host \ # may as well YOLO
-#	--cpuset-cpus 0 \ # control the cpu
-#	--memory 512mb \ # max memory it can use
 #	-v /tmp/.X11-unix:/tmp/.X11-unix \ # mount the X11 socket
 #	-e DISPLAY=unix$DISPLAY \
 #	-e ELUSER=chromeuser \
@@ -14,7 +12,8 @@
 #	--name chrome \
 #	albertalvarezbruned/chrome
 #
-
+#	--cpuset-cpus 0 \ # control the cpu -> it doesn't work for me
+#	--memory 512mb \ # max memory it can use -> it doesn't work for me
 # Base docker image
 FROM debian:sid
 MAINTAINER Albert Alvarez
@@ -49,8 +48,9 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /home/$ELUSER
 RUN useradd $ELUSER -u 1000 -s /bin/bash
-RUN chown $ELUSER -R /home/$ELUSER
+RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 USER $ELUSER
+RUN chown $ELUSER:$ELUSER /home/$ELUSER/Downloads
 ENV HOME /home/$ELUSER
 
 COPY local.conf /etc/fonts/local.conf
