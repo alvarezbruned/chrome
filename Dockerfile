@@ -17,7 +17,7 @@
 # Base docker image
 FROM debian:sid
 MAINTAINER Albert Alvarez
-ENV ELUSER
+ENV ELUSER chromeuser
 ADD https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb /src/google-talkplugin_current_amd64.deb
 RUN mkdir -p /home/$ELUSER
 
