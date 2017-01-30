@@ -46,18 +46,20 @@ RUN apt-get update && apt-get install -y \
 COPY local.conf /etc/fonts/local.conf
 
 ENV ELUSER chromeuser    
+RUN echo $ELUSER
 
 RUN groupadd -r $ELUSER && useradd -r -g $ELUSER $ELUSER
 RUN mkdir -p /home/$ELUSER
-RUN mkdir /home/$ELUSER/Downloads
+RUN mkdir -p /home/$ELUSER/Downloads
 
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
-#ENV ELUSER chromeuser
+
+ENV HOME /home/$ELUSER
 
 USER $ELUSER
 WORKDIR /home/$ELUSER
-ENV HOME /home/$ELUSER
+
 
 
 
