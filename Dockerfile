@@ -42,20 +42,24 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /src/*.deb
 
-RUN useradd $ELUSER -u 1000 -s /bin/bash
+#RUN useradd $ELUSER -u 1000 -s /bin/bash
+COPY local.conf /etc/fonts/local.conf
 
+ENV ELUSER chromeuser    
+
+RUN groupadd -r $ELUSER && useradd -r -g $ELUSER $ELUSER
 RUN mkdir -p /home/$ELUSER
 RUN mkdir /home/$ELUSER/Downloads
 
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
-ENV ELUSER chromeuser
+#ENV ELUSER chromeuser
 
 USER $ELUSER
 WORKDIR /home/$ELUSER
 ENV HOME /home/$ELUSER
 
-COPY local.conf /etc/fonts/local.conf
+
 
 # Autorun chrome
 ENTRYPOINT [ "google-chrome" ]
