@@ -1,16 +1,16 @@
 # Run Chrome in a container
 #
-# docker run --rm -td \
-#	--net host \
-#	--cpuset-cpus 0 \
-#	-v /tmp/.X11-unix:/tmp/.X11-unix \ # mount the X11 socket
-#	-e DISPLAY=unix$DISPLAY \
-#	-v $HOME/Downloads:/home/chromeuser/Downloads \
-#	-v $HOME/.config/google-chrome/:/data \ # if you want to save state
-#	--device /dev/snd \ # so we have sound
-#	-v /dev/shm:/dev/shm \
-#	--name chrome \
-#	albertalvarezbruned/chrome
+#docker run -td \
+#    --net host \
+#    --cpuset-cpus 0 \
+#    -v /tmp/.X11-unix:/tmp/.X11-unix \
+#    -e DISPLAY=unix$DISPLAY \
+#    -v $HOME/Downloads:/root/Downloads \
+#    --device /dev/snd \
+#    -m 500000000 \
+#    -v /dev/shm:/dev/shm \
+#    --name chrome \
+#    albertalvarezbruned/chrome
 #
 #	--memory 512mb \ # max memory it can use -> it doesn't work for me
 # Base docker image
