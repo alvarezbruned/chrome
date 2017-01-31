@@ -5,7 +5,7 @@
 #    --cpuset-cpus 0 \
 #    -v /tmp/.X11-unix:/tmp/.X11-unix \
 #    -e DISPLAY=unix$DISPLAY \
-#    -v $HOME/Downloads:/root/Downloads \
+#    -v $HOME/Downloads:/home/chromeuser/Downloads \
 #    --device /dev/snd \
 #    -m 500000000 \
 #    -v /dev/shm:/dev/shm \
@@ -57,7 +57,7 @@ RUN echo $ELUSER
 #RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 #RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
 
-#ENV HOME /home/$ELUSER
+ENV HOME /home/$ELUSER
 
 #USER $ELUSER
 #WORKDIR /home/$ELUSER
