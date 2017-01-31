@@ -49,11 +49,13 @@ ENV ELUSER chromeuser
 RUN echo $ELUSER
 
 RUN groupadd -r $ELUSER && useradd -r -g $ELUSER $ELUSER
-RUN mkdir -p /home/$ELUSER
-RUN mkdir -p /home/$ELUSER/Downloads
 
-RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
-RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
+
+#RUN mkdir -p /home/$ELUSER
+#RUN mkdir -p /home/$ELUSER/Downloads
+
+#RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
+#RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
 
 ENV HOME /home/$ELUSER
 
