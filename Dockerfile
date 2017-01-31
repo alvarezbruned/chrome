@@ -42,14 +42,14 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /src/*.deb
 
-#RUN useradd $ELUSER -u 1000 -s /bin/bash
+
 COPY local.conf /etc/fonts/local.conf
 
 ENV ELUSER chromeuser    
 RUN echo $ELUSER
 
-RUN groupadd -r $ELUSER && useradd -r -g $ELUSER $ELUSER
-
+#RUN groupadd -r $ELUSER && useradd -r -g $ELUSER $ELUSER
+#RUN useradd $ELUSER -u 1000 -s /bin/bash
 
 #RUN mkdir -p /home/$ELUSER
 #RUN mkdir -p /home/$ELUSER/Downloads
@@ -57,12 +57,14 @@ RUN groupadd -r $ELUSER && useradd -r -g $ELUSER $ELUSER
 #RUN chown $ELUSER:$ELUSER -R /home/$ELUSER
 #RUN chown $ELUSER:$ELUSER -R /home/$ELUSER/Downloads
 
-ENV HOME /home/$ELUSER
+#ENV HOME /home/$ELUSER
+
+#USER $ELUSER
+#WORKDIR /home/$ELUSER
+
+RUN adduser --disabled-password --gecos '' $ELUSER && adduser $ELUSER sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER $ELUSER
-WORKDIR /home/$ELUSER
-
-
 
 
 # Autorun chrome
