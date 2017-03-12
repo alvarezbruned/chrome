@@ -16,7 +16,7 @@
 # Base docker image
 FROM debian:sid
 MAINTAINER Albert Alvarez
-
+ENV LANG es_ES.UTF-8
 ADD https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb /src/google-talkplugin_current_amd64.deb
 
 # Install Chrome
