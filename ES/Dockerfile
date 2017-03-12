@@ -14,7 +14,7 @@
 #
 #	--memory 512mb \ # max memory it can use -> it doesn't work for me
 # Base docker image
-FROM ubuntu:wily
+FROM ubuntu:14.04
 MAINTAINER Albert Alvarez
 
 RUN locale-gen es_ES.UTF-8
