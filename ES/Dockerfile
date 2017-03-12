@@ -16,6 +16,10 @@
 # Base docker image
 FROM debian:sid
 MAINTAINER Albert Alvarez
+
+RUN locale-gen es_ES.UTF-8
+ENV LANG='es_ES.UTF-8' LANGUAGE='es_ES:es' LC_ALL='es_ES.UTF-8'
+
 ADD https://dl.google.com/linux/direct/google-talkplugin_current_amd64.deb /src/google-talkplugin_current_amd64.deb
 
 # Install Chrome
