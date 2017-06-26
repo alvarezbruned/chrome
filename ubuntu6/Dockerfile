@@ -14,7 +14,7 @@
 #
 #	--memory 512mb \ # max memory it can use -> it doesn't work for me
 # Base docker image
-FROM debian:sid
+FROM ubuntu:16.04
 MAINTAINER Albert Alvarez
 
 # Install Chrome
