@@ -20,4 +20,5 @@ MAINTAINER Albert Alvarez
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y chromium-browser
 
-ENTRYPOINT [ "chromium-browser --no-sandbox" ]
+#ENTRYPOINT [ "chromium-browser --no-sandbox" ]
+ENTRYPOINT [ "chromium-browser" ]
