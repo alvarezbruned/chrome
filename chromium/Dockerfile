@@ -6,13 +6,13 @@
 #    -v /tmp/.X11-unix:/tmp/.X11-unix \
 #    -e DISPLAY=unix$DISPLAY \
 #    -v $HOME/Downloads:/root/Downloads \
+#    -v /home/chromium/data:/root \
 #    --device /dev/snd \
 #    -m 500000000 \
 #    -v /dev/shm:/dev/shm \
 #    --name chrome \
-#    albertalvarezbruned/chrome
-#
-#	--memory 512mb \ # max memory it can use -> it doesn't work for me
+#    albertalvarezbruned/chrome:chromium
+
 FROM ubuntu:14.04
 MAINTAINER Albert Alvarez
 
