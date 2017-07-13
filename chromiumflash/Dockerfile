@@ -22,7 +22,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y chromium-browser
 
 RUN apt-get install software-properties-common -y
 RUN add-apt-repository ppa:skunk/pepper-flash -y
-RUN apt-get install pepflashplugin-installer -y
+RUN apt-get install pepflashplugin-installer
 RUN echo ". /usr/lib/pepflashplugin-installer/pepflashplayer.sh" >> /etc/chromium-browser/default
 
 #ENTRYPOINT [ "chromium-browser --no-sandbox" ]
