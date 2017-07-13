@@ -10,7 +10,7 @@
 #    -m 500000000 \
 #    -v /dev/shm:/dev/shm \
 #    --name chrome \
-#    albertalvarezbruned/chrome
+#    albertalvarezbruned/chrome:chromium
 #
 #	--memory 512mb \ # max memory it can use -> it doesn't work for me
 # Base docker image
