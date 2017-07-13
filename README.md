@@ -1,18 +1,18 @@
 # chrome
-# Run Chrome in a container
-#
-#docker run -td \
-#    --net host \
-#    --cpuset-cpus 0 \
-#    -v /tmp/.X11-unix:/tmp/.X11-unix \
-#    -e DISPLAY=unix$DISPLAY \
-#    -v $HOME/Downloads:/root/Downloads \
-#    -v /home/chromium/data:/root \
-#    --device /dev/snd \
-#    -m 500000000 \
-#    -v /dev/shm:/dev/shm \
-#    --name chrome \
-#    albertalvarezbruned/chrome:chromium
+Run Chrome in a container
+
+docker run -td \
+   --net host \
+   --cpuset-cpus 0 \
+   -v /tmp/.X11-unix:/tmp/.X11-unix \
+   -e DISPLAY=unix$DISPLAY \
+   -v $HOME/Downloads:/root/Downloads \
+   -v /home/chromium/data:/root \
+   --device /dev/snd \
+   -m 500000000 \
+   -v /dev/shm:/dev/shm \
+   --name chrome \
+   albertalvarezbruned/chrome:chromium
 
 example compose:
 
