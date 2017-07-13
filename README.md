@@ -1,20 +1,25 @@
 # chrome
-xhost +local:docker
-docker run -td \
--v /tmp/.X11-unix:/tmp/.X11-unix \
--e DISPLAY=unix$DISPLAY \
--v $HOME/Downloads:/home/chromeuser/Downloads \
--m 500000000 \
--v /dev/shm:/dev/shm \
---name chrome \
-albertalvarezbruned/chrome
+# Run Chrome in a container
+#
+#docker run -td \
+#    --net host \
+#    --cpuset-cpus 0 \
+#    -v /tmp/.X11-unix:/tmp/.X11-unix \
+#    -e DISPLAY=unix$DISPLAY \
+#    -v $HOME/Downloads:/root/Downloads \
+#    -v /home/chromium/data:/root \
+#    --device /dev/snd \
+#    -m 500000000 \
+#    -v /dev/shm:/dev/shm \
+#    --name chrome \
+#    albertalvarezbruned/chrome:chromium
 
 example compose:
 
 version: '2'
 services:
   chrome_01:
-    image: 'albertalvarezbruned/chrome'
+    image: 'albertalvarezbruned/chrome:chromium'
     container_name: 'chrome_01'
     volumes:
       - '/tmp/.X11-unix:/tmp/.X11-unix'
@@ -36,4 +41,4 @@ services:
     mem_limit: 2500000000
     environment:
       - 'DISPLAY=unix$DISPLAY'
-    command: 'google-chrome "http://mywebsite2.com" --new-tab "https://www.gmail.com/"'
+    command: 'chromium-browser --no-sandbox "http://mywebsite2.com" -new-tab "https://www.gmail.com/"'
